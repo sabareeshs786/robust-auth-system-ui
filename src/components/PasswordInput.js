@@ -9,6 +9,7 @@ function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, p
   };
 
   return (
+    <>
     <div className="input-group">
       <FaLock />
       {
@@ -43,13 +44,14 @@ function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, p
         size={20} 
         className="password-eye" />
       )}
-      { forSignup &&
-          <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-                8 to 24 characters.<br />
-                Must include altleast one uppercase and lowercase letters, a number and a special character.<br />
-          </p>
-      }
     </div>
+    { forSignup &&
+        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+              8 to 24 characters.<br />
+              Must include atleast one uppercase and lowercase letters, a number and a special character.<br />
+        </p>
+      }
+    </>
   );
 }
 

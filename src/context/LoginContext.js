@@ -15,7 +15,7 @@ export const LoginContextProvider = ({ children }) => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
-    const emailRef = useRef();
+    const userRef = useRef();
     const errRef = useRef();
 
     const [user, resetUser, userAttribs] = useInput('email', '');
@@ -51,7 +51,7 @@ export const LoginContextProvider = ({ children }) => {
     return (
         <LoginContext.Provider value={
             {
-                navigate, location, from, emailRef, errRef, user, resetUser, userAttribs, pwd, setPwd, errMsg, setErrMsg, check, toggleCheck, handleSubmit
+                navigate, location, from, userRef, errRef, user, resetUser, userAttribs, pwd, setPwd, errMsg, setErrMsg, check, toggleCheck, handleSubmit
             }
         }>
             {children}

@@ -1,6 +1,6 @@
 import { FaUser } from 'react-icons/fa';
 export default function EmailInput({
-    emailRef, userAttribs, validName, user, setEmail, setEmailFocus, forSignup = false
+    userRef, userAttribs, validName, user, setEmail, setEmailFocus, forSignup = false
 }) {
     return (
         <>
@@ -12,7 +12,7 @@ export default function EmailInput({
                         type="text"
                         className="input"
                         name="email"
-                        ref={emailRef}
+                        ref={userRef}
                         autoComplete="off"
                         onChange={(e) => setEmail(e.target.value)}
                         value={user}
@@ -24,7 +24,7 @@ export default function EmailInput({
                         type="text"
                         className="input"
                         name="email"
-                        ref={emailRef}
+                        ref={userRef}
                         autoComplete="off"
                         {...userAttribs}
                         placeholder="Email address"

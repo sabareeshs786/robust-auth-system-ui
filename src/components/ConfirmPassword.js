@@ -31,10 +31,10 @@ export default function ConfirmPassword(){
             size={20} 
             className="password-eye" />
             )}
+            </div>
             <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                 Must match the first password input field.
             </p>
-            </div>
         </>
     )
 }
