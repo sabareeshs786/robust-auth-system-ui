@@ -117,7 +117,7 @@
 }
 
 .footer{
-    margin: 20px 0;
+    margin: 10px 0;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -133,6 +133,8 @@
     border-radius: 10px;
     cursor: pointer;
     outline: none;
+    text-align: center;
+    text-decoration: none;
 }
 
 .footer .button:hover{
@@ -165,4 +167,45 @@
 
 .separator:not(:empty)::after {
     margin-left: .25rem;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
 }

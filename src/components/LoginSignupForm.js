@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { FaUser, FaLock} from 'react-icons/fa';
+import { FaUser} from 'react-icons/fa';
 import '../css/loginsignup.css';
-import PasswordField from './PasswordField';
+import PasswordField from './PasswordInput';
 
-export default function () {
-    const [page, setPage] = useState("Login");
+export default function ({pageType}) {
+    const [page, setPage] = useState(pageType);
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [confirmPwd, setConfirmPwd] = useState('');
@@ -32,9 +32,7 @@ export default function () {
                         placeholder="Email id"
                     />
                 </div>
-                <div className="input-group">
-                   <PasswordField pwd={pwd} setPwd={setPwd}/>
-                </div>
+                <PasswordField pwd={pwd} setPwd={setPwd}/>
                 {
                     page === "Signup" ? (<div className="input-group">
                     <PasswordField pwd={confirmPwd} setPwd={setConfirmPwd} confirmPassword={true}/>

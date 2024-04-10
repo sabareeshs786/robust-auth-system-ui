@@ -1,0 +1,40 @@
+.help{
+    position: relative;
+    padding-left:10px;
+    margin-left: 1.2rem;
+    margin-top: 1rem;
+    height: 0.9rem;
+    font-size:0.9rem;
+    line-height:10px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+div.help::before{
+  content:"";
+  position: absolute;
+  border-left: 5px solid black;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  top:0;
+  left:0;
+}
+
+.persistCheck {
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+    margin-left: 0.8rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.persistCheck label {
+    margin: 0;
+}
+
+.footer.action-button-1{
+    padding-top: 0;
+    margin-top: 0;
+}
