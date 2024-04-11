@@ -1,5 +1,6 @@
 import { createContext, useState, useRef } from "react";
 import axios from "../api/axios";
+import { handleError } from '../utils/ErrorHandler';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -35,7 +36,7 @@ export const SignUpContextProvider = ({ children }) => {
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
-
+            setErrMsg("Invalid Entry");
             return;
         }
         try {
@@ -52,7 +53,8 @@ export const SignUpContextProvider = ({ children }) => {
             setPwd('');
             setMatchPwd('');
         } catch (err) {
-            
+            handleError({ err, setErrMsg, errRef });
+            errRef.current.focus();
         }
     }
     return (

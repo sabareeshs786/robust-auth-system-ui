@@ -4,6 +4,8 @@ import '../css/loginsignup.css';
 import '../css/signup.css';
 import SignupForm from "./SignupForm";
 import SignUpContext from "../context/SignUpContext";
+import ErrorMsg from "./ErrorMsg";
+
 
 function SignupContainer() {
 
@@ -23,6 +25,7 @@ function SignupContainer() {
                         <div className="form-header">
                             Signup
                         </div>
+                        <ErrorMsg context={SignUpContext} />
                         <SignupForm />
 
                     <div className="separator">

@@ -4,7 +4,8 @@ import useInput from '../hooks/useInput';
 import useToggle from '../hooks/useToggle';
 import useAuth from "../hooks/useAuth";
 import '../css/login.css';
-import axios from '../api/axios'
+import axios from '../api/axios';
+import { handleError } from "../utils/ErrorHandler";
 const LOGIN_URL = '/login';
 
 const LoginContext = createContext({});
@@ -29,6 +30,7 @@ export const LoginContextProvider = ({ children }) => {
             setErrMsg('Missing email id or password');
             return;
         }
+        
         try {
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({ email: user, pwd: pwd }),
@@ -44,7 +46,7 @@ export const LoginContextProvider = ({ children }) => {
             setPwd('');
             navigate(from, { replace: true });
         } catch (err) {
-
+            handleError({err, setErrMsg, errRef});
         }
     }
 

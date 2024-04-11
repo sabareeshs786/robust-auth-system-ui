@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import '../css/loginsignup.css';
 import LoginForm from './LoginForm';
+import ErrorMsg from "./ErrorMsg";
+import LoginContext from '../context/LoginContext';
 
 function LoginContainer() {
 
@@ -9,6 +11,7 @@ function LoginContainer() {
             <div className="form-header">
                 Login
             </div>
+            <ErrorMsg context={LoginContext} />
             <LoginForm />
 
             <div className="separator">
