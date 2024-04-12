@@ -179,11 +179,13 @@
 .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
-    background: #000;
-    color: #fff;
     padding: 0.4rem 1rem;
     position: relative;
     margin-top: 0.2rem;
+    margin-inline: 0.3rem;
+    font-weight: bold;
+    display: flex;
+    align-items: flex-start;
 }
 
 .instructions > svg {

@@ -1,12 +1,11 @@
 const handleError = ({err, setErrMsg, errRef}) => {
+    console.log(err);
     if (!err?.response) {
         setErrMsg('No Server Response');
-    } else if (err.response?.status === 400) {
-        setErrMsg('Missing Username or Password');
-    } else if (err.response?.status === 401) {
-        setErrMsg('Invalid Email id or Password');
+    } else if (err.response.data.message) {
+        setErrMsg(err.response.data.message);
     } else {
-        setErrMsg('Login Failed');
+        setErrMsg(err.response.data);
     }
     errRef.current.focus();
 }

@@ -1,10 +1,11 @@
 import { createContext, useState, useRef } from "react";
 import axios from "../api/axios";
 import { handleError } from '../utils/ErrorHandler';
+import { isValidUsername } from "../utils/ValidInput";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register';
+const REGISTER_URL = '/signup';
 
 const SignUpContext = createContext();
 
@@ -29,11 +30,11 @@ export const SignUpContextProvider = ({ children }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setValidName(USER_REGEX.test(user));
+        setValidName(isValidUsername(user));
         setValidPwd(PWD_REGEX.test(pwd));
         setValidMatch(pwd === matchPwd);
         
-        const v1 = USER_REGEX.test(user);
+        const v1 = isValidUsername(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
             setErrMsg("Invalid Entry");
@@ -41,7 +42,7 @@ export const SignUpContextProvider = ({ children }) => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ emailPhno: user, pwd, cpwd: matchPwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true

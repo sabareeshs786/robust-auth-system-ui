@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash, FaLock, FaKey } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaLock, FaInfoCircle } from 'react-icons/fa';
 
 function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, pwdFocus}) {
   const [showPassword, setShowPassword] = useState(false);
@@ -7,7 +7,9 @@ function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, p
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const iconStyle = {
+    fontSize: '1.4rem', // Specify the size in rem units
+  };
   return (
     <>
     <div className="input-group">
@@ -47,8 +49,8 @@ function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, p
     </div>
     { forSignup &&
         <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
-              8 to 24 characters.<br />
-              Must include atleast one uppercase and lowercase letters, a number and a special character.<br />
+              <FaInfoCircle style={iconStyle}/>
+              Password must be 8 to 24 characters long and it must include atleast one uppercase and lowercase letters, a number and a special character.
         </p>
       }
     </>

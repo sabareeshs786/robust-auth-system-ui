@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import SignUpContext from "../context/SignUpContext";
-import { FaEye, FaEyeSlash, FaKey } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaKey, FaInfoCircle } from 'react-icons/fa';
 
 export default function ConfirmPassword(){
     const { validMatch, matchPwd, setMatchPwd, setMatchFocus, matchFocus} = useContext(SignUpContext);
@@ -8,7 +8,9 @@ export default function ConfirmPassword(){
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
       };
-
+      const iconStyle = {
+        fontSize: '0.8rem', // Specify the size in rem units
+      };
     return (
         <>
             <div className="input-group">
@@ -33,7 +35,8 @@ export default function ConfirmPassword(){
             )}
             </div>
             <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
-                Must match the first password input field.
+            <FaInfoCircle style={iconStyle}/>
+            Both passwords must match
             </p>
         </>
     )

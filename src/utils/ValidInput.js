@@ -19,19 +19,12 @@ function isValidAddress(address) {
 }
 
 const isPasswordValid = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&#]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[`~!@#$%^&*()-_=+{}\[\]\|\\:;"'<,>.?\/])[A-Za-z\d`~!@#$%^&*()-_=+{}\[\]\|\\:;"'<,>.?\/]{8,}$/;
     return passwordRegex.test(password);
 };
 
-const getField = (emailPhno) => {
-    if(isValidEmail(emailPhno)){
-        return "email";
-    }
-    else if(isValidPhoneNumber(emailPhno)){
-        return "phno";
-    }
-    else
-        return null;
+const isValidUsername = (emailPhno) => {
+    return isValidEmail(emailPhno);
 }
 
-module.exports = { isValidEmail, isValidPhoneNumber, isValidName, isValidAddress, isPasswordValid, getField };
+module.exports = { isValidEmail, isValidPhoneNumber, isValidName, isValidAddress, isPasswordValid, isValidUsername };
