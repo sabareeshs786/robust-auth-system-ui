@@ -8,6 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Logout from './components/Logout';
+import VerifyEmail from './components/VerifyEmail';
 
 const ROLES = {
   "Admin": 51507865,
@@ -22,7 +23,6 @@ function App() {
         <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="" element={<Home />} />
-              <Route path="logout" element={<Logout />} />
             </Route>
           </Route>
       </Route>
@@ -31,6 +31,8 @@ function App() {
       <Route path="/" element={<LayoutAuth />}>
         <Route path="login" element={<Login />}/>
         <Route path="signup" element={<Signup />}/>
+        <Route path="logout" element={<Logout />} />
+        <Route path="verify-email" element={<VerifyEmail />} />
       </Route>
     </Routes>
   );

@@ -13,13 +13,12 @@ function HomeContainer() {
             Profile body
         </div>
         <div className="footer logout">
-            <Link 
+            <button 
                 className="button" 
-                to="/logout"
-                role="button"
+                onClick={handleLogout}
             >
                 Logout
-            </Link>
+            </button>
         </div>
     </>
   )

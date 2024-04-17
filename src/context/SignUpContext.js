@@ -2,6 +2,7 @@ import { createContext, useState, useRef } from "react";
 import axios from "../api/axios";
 import { handleError } from '../utils/ErrorHandler';
 import { isValidUsername } from "../utils/ValidInput";
+import { useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -10,6 +11,9 @@ const REGISTER_URL = '/signup';
 const SignUpContext = createContext();
 
 export const SignUpContextProvider = ({ children }) => {
+
+    const navigate = useNavigate();
+
     const userRef = useRef();
     const errRef = useRef();
 
@@ -48,11 +52,11 @@ export const SignUpContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
             setSuccess(true);
             setUser('');
             setPwd('');
             setMatchPwd('');
+            navigate('/verify-email');
         } catch (err) {
             handleError({ err, setErrMsg, errRef });
             errRef.current.focus();

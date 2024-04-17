@@ -33,6 +33,7 @@ export const HomeContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
+            navigate("/logout");
         } catch (err) {
             handleError({err, setErrMsg, errRef});
         }

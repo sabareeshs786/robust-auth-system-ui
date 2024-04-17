@@ -17,7 +17,7 @@ function SignupContainer() {
                 <>
                     <h1>Success!</h1>
                     <p>
-                        <Link to="/login">Login</Link>
+                        <Link to="/login">Login</Link> again to continue
                     </p>
                 </>
             ) : (
@@ -28,18 +28,18 @@ function SignupContainer() {
                         <ErrorMsg context={SignUpContext} />
                         <SignupForm />
 
-                    <div className="separator">
-                        OR
-                    </div>
-                    <div className="footer action-button-2">
-                        <Link
-                            className="button"
-                            to="/login"
-                            role="button"
-                        >
-                            Login
-                        </Link>
-                    </div>
+                        <div className="separator">
+                            OR
+                        </div>
+                        <div className="footer action-button-2">
+                            <Link
+                                className="button"
+                                to="/login"
+                                role="button"
+                            >
+                                Login
+                            </Link>
+                        </div>
                     </>
             )}
         </>
