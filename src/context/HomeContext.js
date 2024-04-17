@@ -1,10 +1,8 @@
-import { createContext, useState, useRef } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
-import useInput from '../hooks/useInput';
-import useToggle from '../hooks/useToggle';
+import { createContext, useRef, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import axios from '../api/axios';
 import { handleError } from "../utils/ErrorHandler";
+import { useNavigate } from "react-router-dom";
 const LOGOUT_URL = '/logout';
 
 const HomeContext = createContext({});
@@ -12,19 +10,11 @@ const HomeContext = createContext({});
 export const HomeContextProvider = ({ children }) => {
     const { setAuth } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-
-    const userRef = useRef();
     const errRef = useRef();
-
-    const [user, resetUser, userAttribs] = useInput('email', '');
-    const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [check, toggleCheck] = useToggle('persist', false);
-
+    
     const handleLogout = async (e) => {
-        
+        setAuth({});
         try {
             const response = await axios.post(LOGOUT_URL,
                 {},
@@ -42,7 +32,7 @@ export const HomeContextProvider = ({ children }) => {
     return (
         <HomeContext.Provider value={
             {
-                navigate, location, from, userRef, errRef, user, resetUser, userAttribs, pwd, setPwd, errMsg, setErrMsg, check, toggleCheck, handleLogout
+                handleLogout, errMsg, setErrMsg, errRef
             }
         }>
             {children}
