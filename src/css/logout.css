@@ -1,0 +1,11 @@
+.logout-container{
+    font-size: 1.5rem;
+    padding: 20px;
+}
+
+.logout-text{
+    font-size: 2rem;
+    color: green;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

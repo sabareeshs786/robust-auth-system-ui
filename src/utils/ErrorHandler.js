@@ -7,7 +7,7 @@ const handleError = ({err, setErrMsg, errRef}) => {
     } else {
         setErrMsg(err.response.data);
     }
-    errRef.current.focus();
+    errRef?.current?.focus();
 }
 
 export {handleError};
