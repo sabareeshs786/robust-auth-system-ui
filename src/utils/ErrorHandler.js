@@ -1,5 +1,4 @@
 const handleError = ({err, setErrMsg, errRef}) => {
-    console.log(err);
     if (!err?.response) {
         setErrMsg('No Server Response');
     } else if (err.response.data.message) {

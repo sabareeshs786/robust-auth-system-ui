@@ -5,17 +5,19 @@ import { useNavigate } from "react-router-dom";
 
 const VERIFY_EMAIL = "/verify";
 const RESEND = "/resend";
-
+const CODE_REGEX = /^[0-9]{6}$/;
 const VerifyEmailContext = createContext({});
 
 export const VerifyEmailContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const codeRef = useRef();
     const errRef = useRef();
+    const succRef = useRef();
 
     const [code, setCode] = useState('');
     const [isVerified, setIsVerified] = useState(false);
     const [errMsg, setErrMsg] = useState('');
+    const [succMsg, setSuccMsg] = useState('');
 
     const handleSubmit = async (e, user) => {
         e.preventDefault();
@@ -23,7 +25,10 @@ export const VerifyEmailContextProvider = ({ children }) => {
             setErrMsg('Missing email address or verification code');
             return;
         }
-        
+        if(!CODE_REGEX.test(code)){
+            setErrMsg('Invalid code entered\nEnter the correct 6-digit verification code');
+            return;
+        }
         try {
             await axios.post(VERIFY_EMAIL,
                 JSON.stringify({ emailPhno: user, code }),
@@ -32,8 +37,10 @@ export const VerifyEmailContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            navigate('/');
+            setIsVerified(true);
+            setErrMsg('');
         } catch (err) {
+            setSuccMsg('');
             handleError({err, setErrMsg, errRef});
         }
     }
@@ -51,7 +58,11 @@ export const VerifyEmailContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
+            setErrMsg('');
+            setSuccMsg('Verification code resent successfully');
+            succRef?.current?.focus();
         } catch (err) {
+            setSuccMsg('');
             handleError({err, setErrMsg, errRef});
         }
     }
@@ -59,7 +70,7 @@ export const VerifyEmailContextProvider = ({ children }) => {
     return (
         <VerifyEmailContext.Provider value={
             {
-                codeRef, errRef, errMsg, setErrMsg, code, setCode, isVerified, setIsVerified, handleSubmit, handleResendCode
+                codeRef, errRef, errMsg, setErrMsg, succRef, succMsg, setSuccMsg, code, setCode, isVerified, setIsVerified, handleSubmit, handleResendCode
             }
         }>
             {children}

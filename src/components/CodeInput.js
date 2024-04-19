@@ -13,7 +13,7 @@ function CodeInput({codeRef, setCode, code}) {
             autoComplete="off"
             onChange={(e) => setCode(e.target.value)}
             value={code}
-            placeholder="Enter verification code"
+            placeholder="Enter 6-digit verification code"
         />
     </div>
   )
