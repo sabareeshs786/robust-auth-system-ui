@@ -1,6 +1,6 @@
 import { FaUser } from 'react-icons/fa';
 export default function EmailInput({
-    userRef, userAttribs, validName, user, setEmail, setEmailFocus, forSignup = false
+    userRef, userAttribs, user, setEmail, setEmailFocus, forSignup = false
 }) {
     return (
         <>

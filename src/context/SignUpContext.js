@@ -11,7 +11,6 @@ const REGISTER_URL = '/signup';
 const SignUpContext = createContext();
 
 export const SignUpContextProvider = ({ children }) => {
-
     const navigate = useNavigate();
 
     const userRef = useRef();
@@ -53,10 +52,10 @@ export const SignUpContextProvider = ({ children }) => {
                 }
             );
             setSuccess(true);
-            setUser('');
+            // setUser('');
             setPwd('');
             setMatchPwd('');
-            navigate('/verify-email');
+            navigate('/verify-email', {state: {user}});;
         } catch (err) {
             handleError({ err, setErrMsg, errRef });
             errRef.current.focus();
