@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { ResetPasswordContextProvider } from '../context/ResetPasswordContext'
+import ResetPasswordContainer from './ResetPasswordContainer'
 
 function ResetPassword() {
+  const location = useLocation();
+  const user = location.state?.user;
   return (
-    <div>ResetPassword</div>
+    <ResetPasswordContextProvider>
+      <ResetPasswordContainer user={user}/>
+    </ResetPasswordContextProvider>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash, FaLock, FaInfoCircle } from 'react-icons/fa';
 
-function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, pwdFocus}) {
+function PasswordField({pwd, setPwd, forSignup = false, forRP = false, validPwd, setPwdFocus, pwdFocus}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -15,7 +15,7 @@ function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, p
     <div className="input-group">
       <FaLock />
       {
-        forSignup ? <input
+        forSignup || forRP ? <input
         type={showPassword ? 'text' : 'password'}
         className="input"
         name="password"
@@ -25,7 +25,7 @@ function PasswordField({pwd, setPwd, forSignup = false, validPwd, setPwdFocus, p
         onFocus={() => setPwdFocus(true)}
         onBlur={() => setPwdFocus(false)}
         value={pwd}
-        placeholder={"Password"}
+        placeholder={forRP ? "New Password": "Password"}
       /> : 
         <input
         type={showPassword ? 'text' : 'password'}
