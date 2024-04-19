@@ -55,7 +55,7 @@ export const SignUpContextProvider = ({ children }) => {
             // setUser('');
             setPwd('');
             setMatchPwd('');
-            navigate('/verify-email', {state: {user}});;
+            navigate('/verify-code', {state: {user}});;
         } catch (err) {
             handleError({ err, setErrMsg, errRef });
             errRef.current.focus();

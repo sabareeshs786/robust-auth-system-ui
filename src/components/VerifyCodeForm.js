@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from 'react'
 import SubmitButton from "./SubmitButton";
-import VerifyEmailContext from '../context/VerifyEmailContext';
+import VerifyCodeContext from '../context/VerifyCodeContext';
 import CodeInput from './CodeInput';
 
-function VerifyEmailForm({user}) {
-  const { handleSubmit, codeRef, setCode, code } = useContext(VerifyEmailContext);
+function VerifyCodeForm({user, forEmail}) {
+  const { handleSubmit, codeRef, setCode, code } = useContext(VerifyCodeContext);
     useEffect(() => {
       codeRef.current.focus();
     }, []);
   return (
-    <form onSubmit={(e) => handleSubmit(e, user)} className="form-body">
+    <form onSubmit={(e) => handleSubmit(e, user, forEmail)} className="form-body">
       <div>
         <CodeInput codeRef={codeRef} setCode={setCode} code={code}/>
       </div>
@@ -20,4 +20,4 @@ function VerifyEmailForm({user}) {
   )
 }
 
-export default VerifyEmailForm
+export default VerifyCodeForm

@@ -9,6 +9,7 @@ import '../css/loginsignup.css';
 export default function SignupForm() {
     const { handleSubmit, setUserFocus, setUser, user, validName, validPwd, pwd, setPwd, setPwdFocus, pwdFocus, userRef } = useContext(SignUpContext);
     useEffect(() =>{
+        userRef.current.focus();
     }, []);
     
     return (
@@ -33,7 +34,7 @@ export default function SignupForm() {
                 <ConfirmPassword />
             </div>
             <div className="footer action-button-1">
-            <SubmitButton content="Sign up"/>
+                <SubmitButton content="Sign up"/>
             </div>
         </form>
     );

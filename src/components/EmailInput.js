@@ -1,13 +1,13 @@
 import { FaUser } from 'react-icons/fa';
 export default function EmailInput({
-    userRef, userAttribs, user, setEmail, setEmailFocus, forSignup = false
+    userRef, userAttribs, user, setEmail, setEmailFocus, forSignup = false, forFP = false
 }) {
     return (
         <>
            <div className="input-group">
                     <FaUser />
                     {
-                forSignup ?
+                forSignup || forFP ?
                     <input
                         type="text"
                         className="input"

@@ -3,12 +3,13 @@ import axios from '../api/axios';
 import { handleError } from "../utils/ErrorHandler";
 import { useNavigate } from "react-router-dom";
 
-const VERIFY_EMAIL = "/verify";
+const VERIFY_EMAIL_URL = "/verify";
+const VERIFY_FP_URL = "/verify-forgot-password-code"
 const RESEND = "/resend";
 const CODE_REGEX = /^[0-9]{6}$/;
-const VerifyEmailContext = createContext({});
+const VerifyCodeContext = createContext({});
 
-export const VerifyEmailContextProvider = ({ children }) => {
+export const VerifyCodeContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const codeRef = useRef();
     const errRef = useRef();
@@ -19,7 +20,7 @@ export const VerifyEmailContextProvider = ({ children }) => {
     const [errMsg, setErrMsg] = useState('');
     const [succMsg, setSuccMsg] = useState('');
 
-    const handleSubmit = async (e, user) => {
+    const handleSubmit = async (e, user, forEmail) => {
         e.preventDefault();
         if(!user || !code){
             setErrMsg('Missing email address or verification code');
@@ -29,15 +30,21 @@ export const VerifyEmailContextProvider = ({ children }) => {
             setErrMsg('Invalid code entered\nEnter the correct 6-digit verification code');
             return;
         }
+        const URL = forEmail ? VERIFY_EMAIL_URL : VERIFY_FP_URL;
         try {
-            await axios.post(VERIFY_EMAIL,
+            await axios.post(URL,
                 JSON.stringify({ emailPhno: user, code }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
-            setIsVerified(true);
+            if(!forEmail){
+                navigate('/reset-password', {state: {user}});
+            }
+            else{
+                setIsVerified(true);
+            }
             setErrMsg('');
         } catch (err) {
             setSuccMsg('');
@@ -45,14 +52,14 @@ export const VerifyEmailContextProvider = ({ children }) => {
         }
     }
 
-    const handleResendCode = async (e, user) => {
+    const handleResendCode = async (e, user, forEmail) => {
         if(!user){
             setErrMsg('Missing Email Address');
             return;
         }
         try {
             await axios.post(RESEND,
-                JSON.stringify({ emailPhno: user, purpose: "emailPhno" }),
+                JSON.stringify({ emailPhno: user, purpose: `${forEmail ? "emailPhno": "password"}` }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -68,14 +75,14 @@ export const VerifyEmailContextProvider = ({ children }) => {
     }
 
     return (
-        <VerifyEmailContext.Provider value={
+        <VerifyCodeContext.Provider value={
             {
                 codeRef, errRef, errMsg, setErrMsg, succRef, succMsg, setSuccMsg, code, setCode, isVerified, setIsVerified, handleSubmit, handleResendCode
             }
         }>
             {children}
-        </VerifyEmailContext.Provider>
+        </VerifyCodeContext.Provider>
     )
 }
 
-export default VerifyEmailContext;
+export default VerifyCodeContext;

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import VerifyEmailForm from './VerifyEmailForm';
+import VerifyCodeForm from './VerifyCodeForm';
 import ErrorMsg from './ErrorMsg';
-import VerifyEmailContext from '../context/VerifyEmailContext';
+import VerifyCodeContext from '../context/VerifyCodeContext';
 import SuccessMsg from './SuccessMsg';
 import { Link } from 'react-router-dom';
 
-function VerifyEmailContainer({user}) {
-  const { handleResendCode, isVerified } = useContext(VerifyEmailContext);
+function VerifyCodeContainer({user, forEmail}) {
+  const { handleResendCode, isVerified } = useContext(VerifyCodeContext);
 
   return (
     <>
@@ -17,18 +17,18 @@ function VerifyEmailContainer({user}) {
           </div>: 
       <>
         <div className="form-header">
-          Verify Email Address
+          Verify
         </div>
-        <ErrorMsg context={VerifyEmailContext} />
-        <SuccessMsg context={VerifyEmailContext} />
-        <VerifyEmailForm user={user}/>
+        <ErrorMsg context={VerifyCodeContext} />
+        <SuccessMsg context={VerifyCodeContext} />
+        <VerifyCodeForm user={user} forEmail={forEmail}/>
         <div className="separator">
           OR
         </div>
         <div className="footer action-button-2">
           <button
               className="button"
-              onClick={(e) => handleResendCode(e, user)}
+              onClick={(e) => handleResendCode(e, user, forEmail)}
           >
               Resend Code
           </button>
@@ -39,4 +39,4 @@ function VerifyEmailContainer({user}) {
   )
 }
 
-export default VerifyEmailContainer
+export default VerifyCodeContainer

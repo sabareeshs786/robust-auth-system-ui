@@ -8,7 +8,9 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Layout from './components/Layout';
 import Logout from './components/Logout';
-import VerifyEmail from './components/VerifyEmail';
+import VerifyCode from './components/VerifyCode';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 const ROLES = {
   "Admin": 51507865,
@@ -32,7 +34,9 @@ function App() {
         <Route path="login" element={<Login />}/>
         <Route path="signup" element={<Signup />}/>
         <Route path="logout" element={<Logout />} />
-        <Route path="verify-email" element={<VerifyEmail />}/>
+        <Route path="verify-code" element={<VerifyCode />}/>
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password" element={<ResetPassword />} />
       </Route>
     </Routes>
   );
