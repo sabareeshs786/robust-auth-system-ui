@@ -15,11 +15,15 @@ export const ForgotPasswordContextProvider = ({ children }) => {
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
-    const [errMsg, setErrMsg] = useState('');
     const [userFocus, setUserFocus] = useState(false);
+
+    const [errMsg, setErrMsg] = useState('');
+    const [info, setInfo] = useState('');
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setInfo('Sending verification code...');
         setValidName(isValidUsername(user));
         if(!user){
             setErrMsg('Missing email id');
@@ -30,7 +34,7 @@ export const ForgotPasswordContextProvider = ({ children }) => {
             return;
         }
         try {
-            const response = await axios.post(FP_URL,
+            await axios.post(FP_URL,
                 JSON.stringify({ emailPhno: user }),
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -39,6 +43,7 @@ export const ForgotPasswordContextProvider = ({ children }) => {
             );
             navigate('/verify-code', {state: {user, forEmail:false}});
         } catch (err) {
+            setInfo('');
             handleError({err, setErrMsg, errRef});
         }
     }
@@ -46,7 +51,7 @@ export const ForgotPasswordContextProvider = ({ children }) => {
     return (
         <ForgotPasswordContext.Provider value={
             {
-                userFocus, setUserFocus, validName, setValidName, userRef, errRef, user, setUser, errMsg, setErrMsg, handleSubmit
+                userFocus, setUserFocus, validName, setValidName, userRef, errRef, user, setUser, errMsg, setErrMsg, info, setInfo, handleSubmit
             }
         }>
             {children}

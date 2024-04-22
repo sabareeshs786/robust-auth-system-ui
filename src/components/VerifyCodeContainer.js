@@ -4,6 +4,7 @@ import ErrorMsg from './ErrorMsg';
 import VerifyCodeContext from '../context/VerifyCodeContext';
 import SuccessMsg from './SuccessMsg';
 import { Link } from 'react-router-dom';
+import InfoMsg from './Info';
 
 function VerifyCodeContainer({user, forEmail}) {
   const { handleResendCode, isVerified } = useContext(VerifyCodeContext);
@@ -19,6 +20,7 @@ function VerifyCodeContainer({user, forEmail}) {
         <div className="form-header">
           Verify
         </div>
+        <InfoMsg context={VerifyCodeContext} />
         <ErrorMsg context={VerifyCodeContext} />
         <SuccessMsg context={VerifyCodeContext} />
         <VerifyCodeForm user={user} forEmail={forEmail}/>

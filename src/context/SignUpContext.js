@@ -29,10 +29,11 @@ export const SignUpContextProvider = ({ children }) => {
     const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [info, setInfo] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setInfo('Signing up...')
         setValidName(isValidUsername(user));
         setValidPwd(PWD_REGEX.test(pwd));
         setValidMatch(pwd === matchPwd);
@@ -51,12 +52,11 @@ export const SignUpContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            setSuccess(true);
-            // setUser('');
             setPwd('');
             setMatchPwd('');
-            navigate('/verify-code', {state: {user}});;
+            navigate('/verify-code', {state: {user, forEmail: true}});
         } catch (err) {
+            setInfo('');
             handleError({ err, setErrMsg, errRef });
             errRef.current.focus();
         }
@@ -65,7 +65,7 @@ export const SignUpContextProvider = ({ children }) => {
         <SignUpContext.Provider value={{ userRef, errRef, user, setUser, validName, 
             setValidName, userFocus, setUserFocus, pwd, setPwd, validPwd, setValidPwd, 
             pwdFocus, setPwdFocus, matchPwd, setMatchPwd, validMatch, setValidMatch,
-            matchFocus, setMatchFocus, errMsg, setErrMsg, success, setSuccess, handleSubmit}}
+            matchFocus, setMatchFocus, errMsg, setErrMsg, info, setInfo, handleSubmit}}
         >{children}
         </SignUpContext.Provider>
     )

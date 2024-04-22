@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ErrorMsg from "./ErrorMsg";
 import ResetPasswordContext from "../context/ResetPasswordContext";
 import ResetPasswordForm from "./ResetPasswordForm";
+import InfoMsg from "./Info";
 
 function ResetPasswordContainer({user}) {
 
@@ -21,6 +22,7 @@ function ResetPasswordContainer({user}) {
                             Reset Password
                         </div>
                         <ErrorMsg context={ResetPasswordContext} />
+                        <InfoMsg context={ResetPasswordContext} />
                         <ResetPasswordForm user={user}/>
                     </>
             )}

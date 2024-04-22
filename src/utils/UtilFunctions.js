@@ -1,3 +1,5 @@
+import { isValidEmail, isValidPhoneNumber } from "./ValidInput";
+
 const toCapitalize = (s) => s.length > 0 ? s[0].toUpperCase() + s.slice(1) : '';
 
 const indianNumberFormat = (price) => {
@@ -78,4 +80,15 @@ const removeEmptyParams = (obj) => {
     return removeEmptyItems(removeEmptyFields(obj));
 }
 
-export { toCapitalize, indianNumberFormat, removeEmptyParams };
+const getField = (emailPhno) => {
+    if(isValidEmail(emailPhno)){
+        return "email";
+    }
+    else if(isValidPhoneNumber(emailPhno)){
+        return "phno";
+    }
+    else
+        return null;
+}
+
+export { toCapitalize, indianNumberFormat, removeEmptyParams, getField };

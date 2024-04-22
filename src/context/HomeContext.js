@@ -13,6 +13,10 @@ export const HomeContextProvider = ({ children }) => {
     const errRef = useRef();
     const [errMsg, setErrMsg] = useState('');
     
+    const handleTwoStepVerification = async (e) => {
+
+    }
+
     const handleLogout = async (e) => {
         setAuth({});
         try {
@@ -32,7 +36,7 @@ export const HomeContextProvider = ({ children }) => {
     return (
         <HomeContext.Provider value={
             {
-                handleLogout, errMsg, setErrMsg, errRef
+                handleLogout, handleTwoStepVerification, errMsg, setErrMsg, errRef
             }
         }>
             {children}

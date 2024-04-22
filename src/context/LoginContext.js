@@ -7,6 +7,7 @@ import '../css/login.css';
 import axios from '../api/axios';
 import { handleError } from "../utils/ErrorHandler";
 const LOGIN_URL = '/login';
+const RESEND = "/resend";
 
 const LoginContext = createContext({});
 
@@ -18,13 +19,18 @@ export const LoginContextProvider = ({ children }) => {
 
     const userRef = useRef();
     const errRef = useRef();
+    const infoRef = useRef();
 
     const [user, resetUser, userAttribs] = useInput('email', '');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [check, toggleCheck] = useToggle('persist', false);
 
+    const [succMsg, setSuccMsg] = useState('');
+    const [info, setInfo] = useState('');
+
     const handleSubmit = async (e) => {
+        setInfo("Logging in...");
         e.preventDefault();
         if(!user || !pwd){
             setErrMsg('Missing email id or password');
@@ -44,16 +50,40 @@ export const LoginContextProvider = ({ children }) => {
             setAuth({ user, pwd, roles, accessToken });
             resetUser();
             setPwd('');
+            setErrMsg('');
+            setInfo('');
             navigate(from, { replace: true });
         } catch (err) {
-            handleError({err, setErrMsg, errRef});
+            setInfo('');
+            setSuccMsg('');
+            const msg = err.response?.data?.message;
+            if(msg === "Email id is not verified"){
+                setErrMsg(msg + `\nRedirecting to verification page...`);
+                try {
+                    await axios.post(RESEND,
+                        JSON.stringify({ emailPhno: user, purpose: "emailPhno" }),
+                        {
+                            headers: { 'Content-Type': 'application/json' },
+                            withCredentials: true
+                        }
+                    );
+                    setTimeout(() => navigate('/verify-code', {state: {user, forEmail: true}}), 2000);
+                } catch (err) {
+                    setSuccMsg('');
+                    setErrMsg('Unknown error occurred');
+                }
+            }
+            else{
+                handleError({err, setErrMsg, errRef});
+            }
         }
     }
 
     return (
         <LoginContext.Provider value={
             {
-                navigate, location, from, userRef, errRef, user, resetUser, userAttribs, pwd, setPwd, errMsg, setErrMsg, check, toggleCheck, handleSubmit
+                navigate, location, from, userRef, errRef, user, resetUser, userAttribs, pwd, setPwd, errMsg, setErrMsg, check, toggleCheck, handleSubmit,
+                info, setInfo, infoRef, succMsg, setSuccMsg
             }
         }>
             {children}

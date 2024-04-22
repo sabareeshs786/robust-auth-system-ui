@@ -3,13 +3,15 @@ import ForgotPasswordForm from './ForgotPasswordForm'
 import ForgotPasswordContext from '../context/ForgotPasswordContext'
 import ErrorMsg from './ErrorMsg'
 import { Link } from 'react-router-dom'
+import InfoMsg from './Info'
 
 function ForgotPasswordContainer() {
   return (
     <>
         <div className="form-header">
-                Forgot Password
-            </div>
+            Forgot Password
+        </div>
+        <InfoMsg context={ForgotPasswordContext} />
         <ErrorMsg context={ForgotPasswordContext} />
         <ForgotPasswordForm />
 

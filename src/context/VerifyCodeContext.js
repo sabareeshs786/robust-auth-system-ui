@@ -19,9 +19,11 @@ export const VerifyCodeContextProvider = ({ children }) => {
     const [isVerified, setIsVerified] = useState(false);
     const [errMsg, setErrMsg] = useState('');
     const [succMsg, setSuccMsg] = useState('');
+    const [info, setInfo] = useState('');
 
     const handleSubmit = async (e, user, forEmail) => {
         e.preventDefault();
+        setInfo('Verifying...');
         if(!user || !code){
             setErrMsg('Missing email address or verification code');
             return;
@@ -46,13 +48,16 @@ export const VerifyCodeContextProvider = ({ children }) => {
                 setIsVerified(true);
             }
             setErrMsg('');
+            setInfo('');
         } catch (err) {
             setSuccMsg('');
+            setInfo('');
             handleError({err, setErrMsg, errRef});
         }
     }
 
     const handleResendCode = async (e, user, forEmail) => {
+        setInfo('Resending verification code...');
         if(!user){
             setErrMsg('Missing Email Address');
             return;
@@ -66,10 +71,12 @@ export const VerifyCodeContextProvider = ({ children }) => {
                 }
             );
             setErrMsg('');
+            setInfo('');
             setSuccMsg('Verification code resent successfully');
             succRef?.current?.focus();
         } catch (err) {
             setSuccMsg('');
+            setInfo('');
             handleError({err, setErrMsg, errRef});
         }
     }
@@ -77,7 +84,8 @@ export const VerifyCodeContextProvider = ({ children }) => {
     return (
         <VerifyCodeContext.Provider value={
             {
-                codeRef, errRef, errMsg, setErrMsg, succRef, succMsg, setSuccMsg, code, setCode, isVerified, setIsVerified, handleSubmit, handleResendCode
+                codeRef, errRef, errMsg, setErrMsg, succRef, succMsg, setSuccMsg, code, setCode, isVerified, setIsVerified, handleSubmit, handleResendCode,
+                info, setInfo
             }
         }>
             {children}

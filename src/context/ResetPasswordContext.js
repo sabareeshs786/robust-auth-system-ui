@@ -21,9 +21,11 @@ export const ResetPasswordContextProvider = ({ children }) => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+    const [info, setInfo] = useState('');
 
     const handleSubmit = async (e, user) => {
         e.preventDefault();
+        setInfo('Resetting password...');
         setValidPwd(PWD_REGEX.test(pwd));
         setValidMatch(pwd === matchPwd);
         
@@ -44,6 +46,7 @@ export const ResetPasswordContextProvider = ({ children }) => {
             setPwd('');
             setMatchPwd('');
         } catch (err) {
+            setInfo('');
             handleError({ err, setErrMsg, errRef });
             errRef.current.focus();
         }
@@ -52,7 +55,8 @@ export const ResetPasswordContextProvider = ({ children }) => {
         <ResetPasswordContext.Provider value={{ errRef, 
             pwd, setPwd, validPwd, setValidPwd, 
             pwdFocus, setPwdFocus, matchPwd, setMatchPwd, validMatch, setValidMatch,
-            matchFocus, setMatchFocus, errMsg, setErrMsg, success, setSuccess, handleSubmit}}
+            matchFocus, setMatchFocus, errMsg, setErrMsg, success, setSuccess, info, setInfo,
+            handleSubmit}}
         >{children}
         </ResetPasswordContext.Provider>
     )
