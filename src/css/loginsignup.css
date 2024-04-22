@@ -83,7 +83,8 @@
 }
 
 .form-body label{
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .input-group {

@@ -11,6 +11,7 @@ import Logout from './components/Logout';
 import VerifyCode from './components/VerifyCode';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import MfaRequest from './components/MfaRequest';
 
 const ROLES = {
   "Admin": 51507865,
@@ -25,6 +26,7 @@ function App() {
         <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="" element={<Home />} />
+              <Route path="enable-mfa-request" element={<MfaRequest />}/>
             </Route>
           </Route>
       </Route>

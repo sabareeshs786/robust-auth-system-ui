@@ -13,12 +13,13 @@ function HomeContainer() {
         <div className="profile-body">
             <div className="input-field">
                 Two-step verification: &nbsp; 
-                <button 
+                <Link 
                     className="gen-button" 
-                    onClick={handleTwoStepVerification}
+                    role="button"
+                    to={"/enable-mfa-request"}
                 >
                     Turn on
-                </button>
+                </Link>
             </div>
         </div>
         <div className="footer logout">
