@@ -31,6 +31,7 @@ export const ResetPasswordContextProvider = ({ children }) => {
         
         const v = PWD_REGEX.test(pwd);
         if (!v) {
+            setInfo('');
             setErrMsg("Invalid Password entered");
             return;
         }

@@ -33,7 +33,7 @@ export const SignUpContextProvider = ({ children }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setInfo('Signing up...')
+        setInfo('Signing up...');
         setValidName(isValidUsername(user));
         setValidPwd(PWD_REGEX.test(pwd));
         setValidMatch(pwd === matchPwd);
@@ -41,7 +41,8 @@ export const SignUpContextProvider = ({ children }) => {
         const v1 = isValidUsername(user);
         const v2 = PWD_REGEX.test(pwd);
         if (!v1 || !v2) {
-            setErrMsg("Invalid Entry");
+            setInfo('');
+            setErrMsg("Invalid Email address or Phone number or password");
             return;
         }
         try {

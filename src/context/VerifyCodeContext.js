@@ -25,10 +25,14 @@ export const VerifyCodeContextProvider = ({ children }) => {
         e.preventDefault();
         setInfo('Verifying...');
         if(!user || !code){
+            setInfo('');
+            setSuccMsg('');
             setErrMsg('Missing email address or verification code');
             return;
         }
         if(!CODE_REGEX.test(code)){
+            setInfo('');
+            setSuccMsg('');
             setErrMsg('Invalid code entered\nEnter the correct 6-digit verification code');
             return;
         }
@@ -59,6 +63,8 @@ export const VerifyCodeContextProvider = ({ children }) => {
     const handleResendCode = async (e, user, forEmail) => {
         setInfo('Resending verification code...');
         if(!user){
+            setInfo('');
+            setSuccMsg('');
             setErrMsg('Missing Email Address');
             return;
         }

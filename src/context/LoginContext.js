@@ -33,6 +33,8 @@ export const LoginContextProvider = ({ children }) => {
         setInfo("Logging in...");
         e.preventDefault();
         if(!user || !pwd){
+            setInfo('');
+            setSuccMsg('');
             setErrMsg('Missing email id or password');
             return;
         }

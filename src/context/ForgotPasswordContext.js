@@ -26,10 +26,12 @@ export const ForgotPasswordContextProvider = ({ children }) => {
         setInfo('Sending verification code...');
         setValidName(isValidUsername(user));
         if(!user){
+            setInfo('');
             setErrMsg('Missing email id');
             return;
         }
         if(!isValidUsername(user)){
+            setInfo('');
             setErrMsg("Invalid Email id entered");
             return;
         }
