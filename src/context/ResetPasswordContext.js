@@ -25,6 +25,7 @@ export const ResetPasswordContextProvider = ({ children }) => {
 
     const handleSubmit = async (e, user) => {
         e.preventDefault();
+        setErrMsg('');
         setInfo('Resetting password...');
         setValidPwd(PWD_REGEX.test(pwd));
         setValidMatch(pwd === matchPwd);

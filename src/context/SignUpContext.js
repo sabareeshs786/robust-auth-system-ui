@@ -33,6 +33,7 @@ export const SignUpContextProvider = ({ children }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrMsg('');
         setInfo('Signing up...');
         setValidName(isValidUsername(user));
         setValidPwd(PWD_REGEX.test(pwd));

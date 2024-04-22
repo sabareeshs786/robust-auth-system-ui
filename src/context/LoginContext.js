@@ -30,6 +30,8 @@ export const LoginContextProvider = ({ children }) => {
     const [info, setInfo] = useState('');
 
     const handleSubmit = async (e) => {
+        setErrMsg('');
+        setSuccMsg('');
         setInfo("Logging in...");
         e.preventDefault();
         if(!user || !pwd){

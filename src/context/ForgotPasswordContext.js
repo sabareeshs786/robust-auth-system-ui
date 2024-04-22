@@ -23,6 +23,7 @@ export const ForgotPasswordContextProvider = ({ children }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrMsg('');
         setInfo('Sending verification code...');
         setValidName(isValidUsername(user));
         if(!user){

@@ -23,6 +23,8 @@ export const VerifyCodeContextProvider = ({ children }) => {
 
     const handleSubmit = async (e, user, forEmail) => {
         e.preventDefault();
+        setSuccMsg('');
+        setErrMsg('');
         setInfo('Verifying...');
         if(!user || !code){
             setInfo('');
@@ -61,6 +63,8 @@ export const VerifyCodeContextProvider = ({ children }) => {
     }
 
     const handleResendCode = async (e, user, forEmail) => {
+        setSuccMsg('');
+        setErrMsg('');
         setInfo('Resending verification code...');
         if(!user){
             setInfo('');
