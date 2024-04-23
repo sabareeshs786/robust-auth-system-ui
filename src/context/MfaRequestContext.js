@@ -1,14 +1,14 @@
 import { createContext, useState, useRef } from "react";
-import axios from "../api/axios";
 import { handleError } from '../utils/ErrorHandler';
 import { useNavigate } from "react-router-dom";
-
-const MFA_REQ_URL = '/signup';
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+const MFA_REQ_URL = '/enable-mfa-request';
 
 const MfaRequestContext = createContext();
 
 export const MfaRequestContextProvider = ({ children }) => {
     const navigate = useNavigate();
+    const axiosPrivate = useAxiosPrivate();
     const [selectedOption, setSelectedOption] = useState("authApp");
 
     const errRef = useRef();
@@ -26,14 +26,21 @@ export const MfaRequestContextProvider = ({ children }) => {
         setInfo('Sending request...');
         
         try {
-            const response = await axios.post(MFA_REQ_URL,
-                JSON.stringify({ mode: selectedOption }),
+            console.log(selectedOption);
+            const response = await axiosPrivate.post(MFA_REQ_URL,
+                JSON.stringify({ authMethod: selectedOption }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
-            navigate('/enable-mfa');
+            const qrCodeUrl = response.data?.qrCodeUrl;
+            if(selectedOption === "authApp"){
+                navigate('/scan-qr-code', {state: {qrCodeUrl, authMethod: selectedOption}});
+            }
+            else{
+                // TODO
+            }
         } catch (err) {
             setInfo('');
             handleError({ err, setErrMsg, errRef });
