@@ -36,6 +36,7 @@ export const QRCodeContextProvider = ({ children }) => {
             setInfo('');
             setErrMsg('');
             setSuccMsg('MFA enabled successfully');
+            navigate('/');
         } catch (err) {
             setInfo('');
             setSuccMsg('');

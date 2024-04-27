@@ -4,11 +4,12 @@ import VerifyCodeContainer from './VerifyCodeContainer';
 
 function VerifyCode() {
   const location = useLocation();
-  const user = location.state?.user;
-  const forEmail = !!location.state?.forEmail;
+  const user = location?.state?.user;
+  const purpose = location?.state?.purpose;
+  const authMethod = location?.state?.authMethod;
   return (
       <VerifyCodeContextProvider>
-        <VerifyCodeContainer user={user} forEmail={forEmail}/>
+        <VerifyCodeContainer user={user} purpose={purpose} authMethod={authMethod} />
       </VerifyCodeContextProvider>
   )
 }

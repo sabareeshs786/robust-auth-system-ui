@@ -4,8 +4,9 @@ import { handleError } from "../utils/ErrorHandler";
 import { useNavigate } from "react-router-dom";
 
 const VERIFY_EMAIL_URL = "/verify";
-const VERIFY_FP_URL = "/verify-forgot-password-code"
+const VERIFY_FP_URL = "/verify-forgot-password-code";
 const RESEND = "/resend";
+const ENABLE_MFA_URL = "/enable-mfa";
 const CODE_REGEX = /^[0-9]{6}$/;
 const VerifyCodeContext = createContext({});
 
@@ -21,33 +22,38 @@ export const VerifyCodeContextProvider = ({ children }) => {
     const [succMsg, setSuccMsg] = useState('');
     const [info, setInfo] = useState('');
 
-    const handleSubmit = async (e, user, forEmail) => {
+    const purposes = ["email", "fp", "eMFA"];
+    const purposeMfa = ["eMFA"];
+    const authMethods = ["email", "phno"];
+
+    const handleSubmit = async (e, user, purpose, authMethod) => {
         e.preventDefault();
         setSuccMsg('');
         setErrMsg('');
         setInfo('Verifying...');
-        if(!user || !code){
+        if(!user && !purposeMfa.includes(purpose) || purposeMfa.includes(purpose) && !authMethods.includes(authMethod)){
             setInfo('');
             setSuccMsg('');
-            setErrMsg('Missing email address or verification code');
+            setErrMsg('Invalid input data');
             return;
         }
-        if(!CODE_REGEX.test(code)){
+        if(!code || !CODE_REGEX.test(code)){
             setInfo('');
             setSuccMsg('');
             setErrMsg('Invalid code entered\nEnter the correct 6-digit verification code');
             return;
         }
-        const URL = forEmail ? VERIFY_EMAIL_URL : VERIFY_FP_URL;
+        const URL =  purpose === "email" ? VERIFY_EMAIL_URL : purpose === "fp" ? VERIFY_FP_URL : purpose === "eMFA" ? ENABLE_MFA_URL : '';
+        const reqBody = purposeMfa.includes(purpose) ? { authMethod, code } : { emailPhno: user, code };
         try {
             await axios.post(URL,
-                JSON.stringify({ emailPhno: user, code }),
+                JSON.stringify(reqBody),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
-            if(!forEmail){
+            if(purpose === "fp"){
                 navigate('/reset-password', {state: {user}});
             }
             else{
@@ -62,19 +68,19 @@ export const VerifyCodeContextProvider = ({ children }) => {
         }
     }
 
-    const handleResendCode = async (e, user, forEmail) => {
+    const handleResendCode = async (e, user, purpose, authMethod) => {
         setSuccMsg('');
         setErrMsg('');
         setInfo('Resending verification code...');
-        if(!user){
+        if(!user && !purposeMfa.includes(purpose) || purposeMfa.includes(purpose) && !authMethods.includes(authMethod)){
             setInfo('');
             setSuccMsg('');
-            setErrMsg('Missing Email Address');
+            setErrMsg('Invalid input data');
             return;
         }
         try {
             await axios.post(RESEND,
-                JSON.stringify({ emailPhno: user, purpose: `${forEmail ? "emailPhno": "password"}` }),
+                JSON.stringify({ emailPhno: user, purpose: `${purpose === "email" ? "emailPhno": "password"}` }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true

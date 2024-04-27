@@ -39,7 +39,7 @@ export const MfaRequestContextProvider = ({ children }) => {
                 navigate('/scan-qr-code', {state: {qrCodeUrl, authMethod: selectedOption}});
             }
             else{
-                // TODO
+                navigate('/verify-code', {state: {purpose: "eMFA", authMethod: "email"}});
             }
         } catch (err) {
             setInfo('');

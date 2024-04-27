@@ -44,7 +44,7 @@ export const ForgotPasswordContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            navigate('/verify-code', {state: {user, forEmail:false}});
+            navigate('/verify-code', {state: {user, purpose: "fp"}});
         } catch (err) {
             setInfo('');
             handleError({err, setErrMsg, errRef});

@@ -6,7 +6,7 @@ import SuccessMsg from './SuccessMsg';
 import { Link } from 'react-router-dom';
 import InfoMsg from './Info';
 
-function VerifyCodeContainer({user, forEmail}) {
+function VerifyCodeContainer({user, purpose, authMethod}) {
   const { handleResendCode, isVerified } = useContext(VerifyCodeContext);
 
   return (
@@ -23,14 +23,14 @@ function VerifyCodeContainer({user, forEmail}) {
         <InfoMsg context={VerifyCodeContext} />
         <ErrorMsg context={VerifyCodeContext} />
         <SuccessMsg context={VerifyCodeContext} />
-        <VerifyCodeForm user={user} forEmail={forEmail}/>
+        <VerifyCodeForm user={user} purpose={purpose} authMethod={authMethod}/>
         <div className="separator">
           OR
         </div>
         <div className="footer action-button-2">
           <button
               className="button"
-              onClick={(e) => handleResendCode(e, user, forEmail)}
+              onClick={(e) => handleResendCode(e, user, purpose, authMethod)}
           >
               Resend Code
           </button>

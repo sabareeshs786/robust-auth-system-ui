@@ -27,12 +27,18 @@ function App() {
         <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="" element={<Home />} />
-              <Route path="enable-mfa-request" element={<MfaRequest />}/>
-              <Route path="scan-qr-code" element={<QRCode />} />
             </Route>
           </Route>
       </Route>
-
+      <Route path="/" element={<LayoutAuth />}>
+        <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+              <Route path="enable-mfa-request" element={<MfaRequest />}/>
+              <Route path="scan-qr-code" element={<QRCode />} />
+              
+            </Route>
+          </Route>
+      </Route>
       {/* Authentication and Authorization routes */}
       <Route path="/" element={<LayoutAuth />}>
         <Route path="login" element={<Login />}/>

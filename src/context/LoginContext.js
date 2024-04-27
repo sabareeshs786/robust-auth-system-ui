@@ -71,7 +71,7 @@ export const LoginContextProvider = ({ children }) => {
                             withCredentials: true
                         }
                     );
-                    setTimeout(() => navigate('/verify-code', {state: {user, forEmail: true}}), 2000);
+                    setTimeout(() => navigate('/verify-code', {state: {user, purpose: "email"}}), 2000);
                 } catch (err) {
                     setSuccMsg('');
                     setErrMsg('Unknown error occurred');
