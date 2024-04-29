@@ -20,14 +20,14 @@ export const QRCodeContextProvider = ({ children }) => {
     const [errMsg, setErrMsg] = useState('');
     const [info, setInfo] = useState('');
 
-    const handleSubmit = async (e, authMethod) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrMsg('');
         setInfo('Sending request...');
         
         try {
             const response = await axiosPrivate.post(ENABLE_MFA_URL,
-                JSON.stringify({ authMethod, code }),
+                JSON.stringify({ authMethod: "authApp", code }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true

@@ -26,7 +26,6 @@ export const MfaRequestContextProvider = ({ children }) => {
         setInfo('Sending request...');
         
         try {
-            console.log(selectedOption);
             const response = await axiosPrivate.post(MFA_REQ_URL,
                 JSON.stringify({ authMethod: selectedOption }),
                 {
@@ -36,10 +35,10 @@ export const MfaRequestContextProvider = ({ children }) => {
             );
             const qrCodeUrl = response.data?.qrCodeUrl;
             if(selectedOption === "authApp"){
-                navigate('/scan-qr-code', {state: {qrCodeUrl, authMethod: selectedOption}});
+                navigate('/scan-qr-code', {state: {qrCodeUrl}});
             }
             else{
-                navigate('/verify-code', {state: {purpose: "eMFA", authMethod: "email"}});
+                navigate('/verify-code', {state: {purpose: "eMFA", authMethod: selectedOption}});
             }
         } catch (err) {
             setInfo('');

@@ -6,10 +6,9 @@ import QRCodeContainer from './QRCodeContainer';
 function QRCode() {
     const location = useLocation();
     const qrCodeUrl = location.state?.qrCodeUrl;
-    const authMethod = location.state?.authMethod;
     return (
         <QRCodeContextProvider>
-            <QRCodeContainer qrCodeUrl={qrCodeUrl} authMethod={authMethod} />
+            <QRCodeContainer qrCodeUrl={qrCodeUrl} />
         </QRCodeContextProvider>
     )
 }

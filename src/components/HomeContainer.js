@@ -1,9 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import HomeContext from '../context/HomeContext'
 import { Link } from 'react-router-dom';
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+
+const USER_URL = "/users/getinfo";
 
 function HomeContainer() {
-    const { handleLogout, handleTwoStepVerification } = useContext(HomeContext);
+    const axiosPrivate = useAxiosPrivate();
+    const { handleLogout, handleTwoStepVerification, userInfo, setUserInfo, mfa, setMfa } = useContext(HomeContext);
+    const getUserInfo = async () => {
+        const response = await axiosPrivate.get(USER_URL, {
+            withCredentials: true
+        });
+        setUserInfo(response.data);
+        setMfa(`Turn ${response.data?.mfa ? "off": "on"}`);
+    }
+
+    useEffect(()=> {
+        getUserInfo();
+    }, []);
     
   return (
     <>
@@ -13,13 +28,12 @@ function HomeContainer() {
         <div className="profile-body">
             <div className="input-field">
                 Two-step verification: &nbsp; 
-                <Link 
+                <button 
                     className="gen-button" 
-                    role="button"
-                    to={"/enable-mfa-request"}
+                    onClick={(e) => handleTwoStepVerification(e, userInfo)}
                 >
-                    Turn on
-                </Link>
+                    {mfa}
+                </button>
             </div>
         </div>
         <div className="footer logout">

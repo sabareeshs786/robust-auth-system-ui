@@ -6,7 +6,7 @@ import QRCodeForm from './QRCodeForm'
 import QRCodeContext from '../context/QRCodeContext'
 import SuccessMsg from './SuccessMsg';
 
-function QRCodeContainer({qrCodeUrl, authMethod}) {
+function QRCodeContainer({qrCodeUrl}) {
   return (
     <>
         <div className="form-header">
@@ -16,7 +16,7 @@ function QRCodeContainer({qrCodeUrl, authMethod}) {
         <ErrorMsg context={QRCodeContext} />
         <SuccessMsg context={QRCodeContext} />
         
-        <QRCodeForm qrCodeUrl={qrCodeUrl} authMethod={authMethod} />
+        <QRCodeForm qrCodeUrl={qrCodeUrl} />
 
         <div className="separator">
             OR
