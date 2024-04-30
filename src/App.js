@@ -13,6 +13,7 @@ import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import MfaRequest from './components/MfaRequest';
 import QRCode from './components/QRCode';
+import VerifyMfaCode from './components/VerifyMfaCode';
 
 const ROLES = {
   "Admin": 51507865,
@@ -45,6 +46,7 @@ function App() {
         <Route path="signup" element={<Signup />}/>
         <Route path="logout" element={<Logout />} />
         <Route path="verify-code" element={<VerifyCode />}/>
+        <Route path="verify-mfa-code" element={<VerifyMfaCode />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
       </Route>

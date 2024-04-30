@@ -1,44 +1,44 @@
-import React, { useContext } from 'react'
-import VerifyCodeForm from './VerifyCodeForm';
+import React, { useContext, useEffect } from 'react'
+import VerifyMfaCodeForm from './VerifyMfaCodeForm';
 import ErrorMsg from './ErrorMsg';
-import VerifyCodeContext from '../context/VerifyCodeContext';
+import VerifyMfaCodeContext from '../context/VerifyMfaCodeContext';
 import SuccessMsg from './SuccessMsg';
-import { Link } from 'react-router-dom';
 import InfoMsg from './Info';
 
-function VerifyCodeContainer({user, purpose, authMethod}) {
-  const { handleResendCode, isVerified } = useContext(VerifyCodeContext);
-
+function VerifyMfaCodeContainer({user, verifyThrough, from, pwd}) {
+  const { handleResendCode, setSelectedOption } = useContext(VerifyMfaCodeContext);
+  useEffect(() => {
+    setSelectedOption(verifyThrough);
+  }, []);
   return (
     <>
-      {isVerified ?  
-          <div className="text-container">
-            <div className="green-text"> Verification Successful </div>
-            <Link to="/login"> Login </Link> again to continue
-          </div>: 
-      <>
-        <div className="form-header">
-          Verify
-        </div>
-        <InfoMsg context={VerifyCodeContext} />
-        <ErrorMsg context={VerifyCodeContext} />
-        <SuccessMsg context={VerifyCodeContext} />
-        <VerifyCodeForm user={user} purpose={purpose} authMethod={authMethod}/>
-        <div className="separator">
-          OR
-        </div>
-        <div className="footer action-button-2">
-          <button
-              className="button"
-              onClick={(e) => handleResendCode(e, user, purpose, authMethod)}
-          >
-              Resend Code
-          </button>
-        </div>
-      </>
+      <div className="form-header">
+        Verify your identity
+      </div>
+      <InfoMsg context={VerifyMfaCodeContext} />
+      <ErrorMsg context={VerifyMfaCodeContext} />
+      <SuccessMsg context={VerifyMfaCodeContext} />
+      <VerifyMfaCodeForm user={user} verifyThrough={verifyThrough} from={from} pwd={pwd} />
+      {
+        verifyThrough !== "authApp" && (
+        <>
+          <div className="separator">
+            OR
+          </div>
+          <div className="footer action-button-2">
+            <button
+                className="button"
+                onClick={(e) => handleResendCode(e, user)}
+            >
+                Resend Code
+            </button>
+          </div>
+        </>
+      )
       }
-  </>
+      
+    </>
   )
 }
 
-export default VerifyCodeContainer
+export default VerifyMfaCodeContainer

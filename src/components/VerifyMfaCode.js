@@ -1,17 +1,19 @@
 import { useLocation } from 'react-router-dom';
-import { VerifyCodeContextProvider } from '../context/VerifyCodeContext';
-import VerifyCodeContainer from './VerifyCodeContainer';
+import { VerifyMfaCodeContextProvider } from '../context/VerifyMfaCodeContext';
+import VerifyMfaCodeContainer from './VerifyMfaCodeContainer';
 
-function VerifyCode() {
+function VerifyMfaCode() {
   const location = useLocation();
-  const user = location?.state?.user;
-  const purpose = location?.state?.purpose;
-  const authMethod = location?.state?.authMethod;
+  const user = location?.state?.User;
+  const verifyThrough = location?.state?.verifyThrough;
+  const from = location?.state?.from;
+  const pwd = location?.state?.pwd;
+
   return (
-      <VerifyCodeContextProvider>
-        <VerifyCodeContainer user={user} purpose={purpose} authMethod={authMethod} />
-      </VerifyCodeContextProvider>
+      <VerifyMfaCodeContextProvider>
+        <VerifyMfaCodeContainer user={user} verifyThrough={verifyThrough} from={from} pwd={pwd} />
+      </VerifyMfaCodeContextProvider>
   )
 }
 
-export default VerifyCode
+export default VerifyMfaCode

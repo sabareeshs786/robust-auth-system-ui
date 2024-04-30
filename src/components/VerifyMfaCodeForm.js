@@ -1,19 +1,30 @@
 import React, { useContext, useEffect } from 'react'
 import SubmitButton from "./SubmitButton";
-import VerifyCodeContext from '../context/VerifyCodeContext';
+import VerifyMfaCodeContext from '../context/VerifyMfaCodeContext';
 import CodeInput from './CodeInput';
-import { FaInfoCircle } from 'react-icons/fa';
 import { getField } from '../utils/UtilFunctions';
+import DropDownMenu from './DropDownMenu';
 
-function VerifyCodeForm({user, purpose, authMethod}) {
-  const { handleSubmit, codeRef, setCode, code } = useContext(VerifyCodeContext);
-    useEffect(() => {
-      codeRef.current.focus();
-    }, []);
+function VerifyMfaCodeForm({user, verifyThrough, from, pwd}) {
+  const options = {"authApp": "Authenticator App", "email":"Email Address"}
+  const { handleSubmit, codeRef, setCode, code, selectedOption, handleSelectChange } = useContext(VerifyMfaCodeContext);
+  useEffect(() => {
+    codeRef.current.focus();
+  }, []);
   return (
-    <form onSubmit={(e) => handleSubmit(e, user, purpose, authMethod)} className="form-body">
+    <form onSubmit={(e) => handleSubmit(e, user, from, pwd)} className="form-body">
+      {
+        verifyThrough === "authApp" && (
+          <div>
+            <label className="label" htmlFor="dropdown">Authentication method </label>
+            <div className="dropdown-container">
+              <DropDownMenu options={options} selectedOption={selectedOption} handleSelectChange={(e) => handleSelectChange(e, user)} />
+            </div>
+          </div>
+        )
+      }
       <div>
-        <p><FaInfoCircle /> Verification code has been sent to the Email address. Please enter it.</p>
+        {verifyThrough !== "authApp" ? `Enter the verification code sent to your ${verifyThrough === "email" ? "Email address" : "Phone number"}` : ''}
         <CodeInput codeRef={codeRef} setCode={setCode} code={code}/>
       </div>
       <div className="footer action-button-1">
@@ -23,4 +34,4 @@ function VerifyCodeForm({user, purpose, authMethod}) {
   )
 }
 
-export default VerifyCodeForm
+export default VerifyMfaCodeForm

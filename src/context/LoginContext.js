@@ -49,15 +49,28 @@ export const LoginContextProvider = ({ children }) => {
                     withCredentials: true
                 }
             );
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
-            resetUser();
-            setPwd('');
-            setErrMsg('');
-            setInfo('');
-            navigate(from, { replace: true });
+            console.log(response);
+            if(response?.data?.message === "Verify your identity"){
+                const password = pwd;
+                const User = user;
+                resetUser();
+                setPwd('');
+                setErrMsg('');
+                setInfo('');
+                navigate('/verify-mfa-code', {state: {User, verifyThrough: response?.data?.verifyThrough, from, password}});
+            }
+            else{
+                const accessToken = response?.data?.accessToken;
+                const roles = response?.data?.roles;
+                setAuth({ user, pwd, roles, accessToken });
+                resetUser();
+                setPwd('');
+                setErrMsg('');
+                setInfo('');
+                navigate(from, { replace: true });
+            }
         } catch (err) {
+            console.log(err);
             setInfo('');
             setSuccMsg('');
             const msg = err.response?.data?.message;
