@@ -1,5 +1,6 @@
 # Robust Auth System UI
-This is the UI of the generic authentication and authorization system that can be used in any MERN stack projects.
+This is the UI of the generic authentication and authorization system that can be used in any MERN stack projects. Also check the backend of this application at [Robust Auth System - Backend](https://github.com/sabareeshs786/robust-auth-system-backend/) which contains the features implemented in this Node.Js application in detail.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
